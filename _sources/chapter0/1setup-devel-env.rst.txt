@@ -5,14 +5,14 @@
    :hidden:
    :maxdepth: 4
    
-本节我们将完成环境配置并成功运行 uCore-Tutorial-v2 。整个流程分为下面几个部分：
+本节我们将完成环境配置并成功运行 uCore-Tutorial-2022A 。整个流程分为下面几个部分：
 
 - classroom配置
 - 系统环境配置
 - Riscv下 C 开发环境配置
 - Qemu 模拟器安装
 - 其他工具安装
-- 运行 uCore-Tutorial-v2
+- 运行 uCore-Tutorial-2022A
 
 目前实验仅支持 Ubuntu18.04 + 操作系统。对于 Windows10 和 macOS 上的用户，可以使用 VMware 或 VirtualBox 安装一台 Ubuntu18.04 虚拟机并在上面进行实验。除了前面提到的几种方法，也可以基于github classroom witch codespaces进行开发。
 
@@ -172,8 +172,8 @@ Docker 环境安装(可选，已完成上述步骤的可以忽略)
 Qemu 模拟器安装
 ----------------------------------------
 
-我们需要使用 Qemu 5.x.x 版本进行实验，而很多 Linux 发行版的软件包管理器默认软件源中的 Qemu 版本过低，因此
-我们需要从源码手动编译安装 Qemu 模拟器。
+我们推荐使用 Qemu 7.0.0 版本及以上进行实验，而很多 Linux 发行版的软件包管理器默认软件源中的 Qemu 版本过低，可能无法顺利实验
+因此我们需要从源码手动编译安装 Qemu 模拟器。
 
 首先我们安装依赖包，获取 Qemu 源代码并手动编译：
 
@@ -181,16 +181,16 @@ Qemu 模拟器安装
 
    # 安装编译所需的依赖包
    sudo apt install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev \
-                 gawk build-essential bison flex texinfo gperf libtool patchutils bc \
+                 gawk build-essential bison flex texinfo gperf libtool patchutils bc ninja-build \
                  zlib1g-dev libexpat-dev pkg-config  libglib2.0-dev libpixman-1-dev git tmux python3
    # 下载源码包 
    # 如果下载速度过慢可以使用我们提供的百度网盘链接：https://pan.baidu.com/s/1z-iWIPjxjxbdFS2Qf-NKxQ
    # 提取码 8woe
-   wget https://download.qemu.org/qemu-5.0.0.tar.xz
+   wget https://download.qemu.org/qemu-7.0.0.tar.xz
    # 解压
-   tar xJf qemu-5.0.0.tar.xz
+   tar xJf qemu-7.0.0.tar.xz
    # 编译安装并配置 RISC-V 支持
-   cd qemu-5.0.0
+   cd qemu-7.0.0
    ./configure --target-list=riscv64-softmmu,riscv64-linux-user
    make -j$(nproc)
 
@@ -206,7 +206,7 @@ Qemu 模拟器安装
    另外一些 Linux 发行版编译 Qemu 的依赖包可以从 `这里 <https://risc-v-getting-started-guide.readthedocs.io/en/latest/linux-qemu.html#prerequisites>`_ 
    找到。
 
-   GCC 11 可能无法正常编译 Qemu5 ，而 GCC 9.3.0 (Ubuntu 20.04 自带) 及 GCC 10.3.0 经测试可以编译，请自行选择合适的编译器版本。
+   GCC 11 可能无法正常编译 Qemu7 ，而 GCC 9.3.0 (Ubuntu 20.04 自带) 及 GCC 10.3.0 经测试可以编译，请自行选择合适的编译器版本。
 
 之后我们可以在同目录下 ``sudo make install`` 将 Qemu 安装到 ``/usr/local/bin`` 目录下，但这样经常会引起
 冲突。个人来说更习惯的做法是，编辑 ``~/.bashrc`` 文件（如果使用的是默认的 ``bash`` 终端），在文件的末尾加入
@@ -215,9 +215,9 @@ Qemu 模拟器安装
 .. code-block:: bash
 
    # 注意 $HOME 是 Linux 自动设置的表示你家目录的环境变量，你也可以根据实际位置灵活调整
-   export PATH="$HOME/Downloads/built/qemu-5.0.0:$PATH"
-   export PATH="$HOME/Downloads/built/qemu-5.0.0/riscv64-softmmu:$PATH"
-   export PATH="$HOME/Downloads/built/qemu-5.0.0/riscv64-linux-user:$PATH"
+   export PATH="$HOME/Downloads/built/qemu-7.0.0:$PATH"
+   export PATH="$HOME/Downloads/built/qemu-7.0.0/riscv64-softmmu:$PATH"
+   export PATH="$HOME/Downloads/built/qemu-7.0.0/riscv64-linux-user:$PATH"
 
 随后即可在当前终端 ``source ~/.bashrc`` 更新系统路径，或者直接重启一个新的终端。
 
@@ -246,15 +246,15 @@ GDB 调试支持
 
 解压后在 ``bin`` 目录下即可找到 ``riscv64-unknown-elf-gdb`` 以及另外一些常用工具 ``objcopy/objdump/readelf`` 等。
 
-在 Qemu 平台上运行 uCore-Tutorial-v2
+在 Qemu 平台上运行 uCore-Tutorial-2022A
 ------------------------------------------------------------
 
 到这里，恭喜你完成了实验环境的配置，可以开始阅读教程的正文部分了！可以直接clone下面的仓库来开始OS之旅：
 
 .. code-block:: bash
 
-   git clone https://github.com/LearningOS/uCore-Tutorial-Code-2022S.git
-   cd uCore-Tutorial-Code-2022S
+   git clone https://github.com/LearningOS/uCore-Tutorial-Code-2022A.git
+   cd uCore-Tutorial-Code-2022A
 
 其他的章节需要处理用户代码，我们可以先运行不需要处理用户代码的 ch1 分支：
 
@@ -290,6 +290,10 @@ GDB 调试支持
    [PANIC 0] os/main.c:39: ALL DONE
 
 忽略掉编译输出后，你应该得到如上的输出，这表示 uCore 已经成功运行。
+
+.. note::
+   
+   上方的输出是比较早期版本的，我们现在使用的 ``rustsbi-qemu`` 已经更新至最新版（2022-10），与之有些微差异之处。
 
 .. note::
 

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="索引" href="../genindex.html" /><link rel="search" title="搜索" href="../search.html" /><link rel="next" title="nfs文件系统" href="2fs-implementation.html" /><link rel="prev" title="引言" href="0intro.html" />
 
     <meta name="generator" content="sphinx-4.1.2, furo 2021.08.31"/>
-        <title>文件系统接口 - uCore-Tutorial-Guide-2022S 0.1 文档</title>
+        <title>文件系统接口 - uCore-Tutorial-Guide-2022A 0.1 文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">uCore-Tutorial-Guide-2022S 0.1 文档</div></a>
+      <a href="../index.html"><div class="brand">uCore-Tutorial-Guide-2022A 0.1 文档</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">uCore-Tutorial-Guide-2022S 0.1 文档</span>
+  <span class="sidebar-brand-text">uCore-Tutorial-Guide-2022A 0.1 文档</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder=搜索 name="q" aria-label="搜索">
@@ -331,8 +331,8 @@
 <p>Blocks 给出 <code class="docutils literal notranslate"><span class="pre">os</span></code> 目录也占用 8 个块进行存储。实际上目录也可以看作一种常规文件，它也有属于自己的底层编号，它的内容中保存着若干 <strong>目录项</strong> (Dirent, Directory Entry) ，可以看成一组映射，根据它下面的文件或子目录的文件名或目录名能够查到文件和子目录在文件系统中的底层编号，即 Inode 编号。但是与常规文件不同的是，用户无法 <strong>直接</strong> 修改目录的内容，只能通过创建/删除它下面的文件或子目录才能间接做到这一点。</p>
 <p>有了目录之后，我们就可以将所有的文件和目录组织为一种被称为 <strong>目录树</strong> (Directory Tree) 的有根树结构（不考虑软链接）。树中的每个节点都是一个文件或目录，一个目录下面的所有的文件和子目录都是它的孩子。可以看出所有的文件都是目录树的叶子节点。目录树的根节点也是一个目录，它被称为 <strong>根目录</strong> (Root Directory)。目录树中的每个目录和文件都可以用它的 <strong>绝对路径</strong> (Absolute Path) 来进行索引，该绝对路径是目录树上的根节点到待索引的目录和文件所在的节点之间自上而下的路径上的所有节点的文件或目录名两两之间加上路径分隔符拼接得到的。例如，在 Linux 上，根目录的绝对路径是 <code class="docutils literal notranslate"><span class="pre">/</span></code> ，路径分隔符也是 <code class="docutils literal notranslate"><span class="pre">/</span></code> ，因此：</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">main.c</span></code> 的绝对路径是 <code class="docutils literal notranslate"><span class="pre">/home/oslab/workspace/UCORE/uCore-Tutorial-v2/os/main.c</span></code> ；</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">os</span></code> 目录的绝对路径则是 <code class="docutils literal notranslate"><span class="pre">/home/oslab/workspace/UCORE/uCore-Tutorial-v2/os</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.c</span></code> 的绝对路径是 <code class="docutils literal notranslate"><span class="pre">/home/oslab/workspace/UCORE/uCore-Tutorial-2022A/os/main.c</span></code> ；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">os</span></code> 目录的绝对路径则是 <code class="docutils literal notranslate"><span class="pre">/home/oslab/workspace/UCORE/uCore-Tutorial-2022A/os</span></code> 。</p></li>
 </ul>
 <p>上面的绝对路径因具体环境而异。</p>
 <p>一般情况下，绝对路径都很长，用起来颇为不便。而且，在日常使用中，我们通常固定在一个工作目录下而不会频繁切换目录。因此更为常用的是 <strong>相对路径</strong> (Relative Path) 而非绝对路径。每个进程都会记录自己当前所在的工作目录，当它在索引文件或目录的时候，如果传给它的路径并未以 <code class="docutils literal notranslate"><span class="pre">/</span></code> 开头则会被内核认为是一个相对于进程当前工作目录的相对路径，这个路径会被拼接在进程当前路径的后面组成一个绝对路径，实际索引的是这个绝对路径对应的文件或目录。其中， <code class="docutils literal notranslate"><span class="pre">./</span></code> 表示当前目录，而 <code class="docutils literal notranslate"><span class="pre">../</span></code> 表示当前目录的父目录，这在通过相对路径进行索引的时候非常实用。在使用终端的时候， <code class="docutils literal notranslate"><span class="pre">pwd</span></code> 工具可以打印终端进程当前所在的目录，而通过 <code class="docutils literal notranslate"><span class="pre">cd</span></code> 可以切换终端进程的工作目录。</p>
@@ -495,7 +495,7 @@ var addUtterances = () => {
     script.src = "https://utteranc.es/client.js";
     script.async = "async";
 
-    script.setAttribute("repo", "LearningOS/uCore-Tutorial-Guide-2022S");
+    script.setAttribute("repo", "LearningOS/uCore-Tutorial-Guide-2022A");
     script.setAttribute("issue-term", "pathname");
     script.setAttribute("theme", "github-light");
     script.setAttribute("label", "comments");

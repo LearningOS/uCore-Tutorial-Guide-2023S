@@ -82,9 +82,9 @@ ch3 中，我们的系统已经能够支持多个任务分时轮流运行，我�
 问答作业
 --------------------------------------------
 
-1. 正确进入 U 态后，程序的特征还应有：使用 S 态特权指令，访问 S 态寄存器后会报错。请同学们可以自行测试这些内容（参考 `前三个测例 <https://github.com/LearningOS/uCore-Tutorial-Test-2022S/tree/main/src>`_ ，描述程序出错行为，同时注意注明你使用的 sbi 及其版本。
+1. 正确进入 U 态后，程序的特征还应有：使用 S 态特权指令，访问 S 态寄存器后会报错。请同学们可以自行测试这些内容（参考 `前三个测例 <https://github.com/LearningOS/uCore-Tutorial-Test-2022A/tree/main/src>`_ ，描述程序出错行为，同时注意注明你使用的 sbi 及其版本。
 
-2. 请结合用例理解 `trampoline.S <https://github.com/LearningOS/uCore-Tutorial-Code-2022S/blob/ch3/os/trampoline.S>`_ 中两个函数 `userret` 和 `uservec` 的作用，并回答如下几个问题:
+2. 请结合用例理解 `trampoline.S <https://github.com/LearningOS/uCore-Tutorial-Code-2022A/blob/ch3/os/trampoline.S>`_ 中两个函数 `userret` 和 `uservec` 的作用，并回答如下几个问题:
 
    1. L79: 刚进入 `userret` 时，`a0`、`a1` 分别代表了什么值。 
 

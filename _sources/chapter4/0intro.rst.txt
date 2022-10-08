@@ -64,9 +64,9 @@ github 多仓库使用讲解
 
 .. code-block:: console
 
-   $ cd uCore-Tutorial-Code-2022S
+   $ cd uCore-Tutorial-Code-2022A
    # 你可以将 upstream 改为你喜欢的名字
-   $ git remote add upstream https://github.com/LearningOS/uCore-Tutorial-Code-2022S.git
+   $ git remote add upstream https://github.com/LearningOS/uCore-Tutorial-Code-2022A.git
    # 更新仓库信息
    $ git fetch upstream
    # 查看已添加的远程仓库；应该能看到已有一个 origin 和新添加的 upstream 仓库
@@ -159,4 +159,4 @@ github 多仓库使用讲解
 本章代码导读
 -----------------------------------------------------
 
-本章涉及的代码量相对多了起来。新增的代码主要是集中在页表的处理上的。由于课程整改，春季学期的同学们可能还没有上过计组，对页表的内容还不太熟悉。因此本章的内容可能需要同学们多多回顾OS课上对页表的讲解。同时本章也会介绍我们OS的Riscv-64指令集是如何设计页表，以及页表读取和修改的方式。
+本章涉及的代码量相对多了起来。新增的代码主要是集中在页表的处理上的。由于课程整改，秋季学期的同学们可能还没有上过计组，对页表的内容还不太熟悉。因此本章的内容可能需要同学们多多回顾OS课上对页表的讲解。同时本章也会介绍我们OS的Riscv-64指令集是如何设计页表，以及页表读取和修改的方式。
