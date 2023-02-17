@@ -305,13 +305,13 @@
 </div>
 <div class="section" id="id2">
 <h2>编程作业<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">注解</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
 <p>本次实验框架变动较大，且改动较为复杂，为降低同学们的工作量，本次实验不要求合并之前的实验内容，
 可以直接 checkout 到助教的 ch8 框架开始实验，最终只需通过 ch8 系列的测例和前面章节的基础测例即可。</p>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">警告</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
 <p>本次实验实现死锁检测算法本身只需要40行左右代码，但加上系统调用实现、变量声明与初始化、
 以及在锁的创建、锁、释放时维护死锁检测 Available、Allocation、Request 数组，
 总代码量预计在100行左右。助教的参考实现约为90行。</p>
@@ -383,15 +383,23 @@ m 个元素。初始时，Work = Available ；结束向量 Finish，表示系统
 <li><dl class="simple">
 <dt>可能的错误</dt><dd><ul>
 <li><p>参数不合法</p></li>
+<li><p>死锁检测开启失败</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
+<p>..实验结果
+..+++++++++++++++++++++++++++++++++++++++++</p>
+<p>..本实验采用了github classroom的自动评分功能，完成实验提交（git push）后会触发自动测试，实验测试结果可以在在线统计&lt;<a class="reference external" href="https://ucore-rv-64.github.io/classroom-grading/">https://ucore-rv-64.github.io/classroom-grading/</a>&gt;中查看。</p>
 </div>
 <div class="section" id="id4">
-<h3>实验结果<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
-<p>本实验采用了github classroom的自动评分功能，完成实验提交（git push）后会触发自动测试，实验测试结果可以在在线统计&lt;<a class="reference external" href="https://ucore-rv-64.github.io/classroom-grading/">https://ucore-rv-64.github.io/classroom-grading/</a>&gt;中查看。</p>
+<h3>实验要求<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>完成分支: ch8。</p></li>
+<li><p>实验目录要求不变。</p></li>
+<li><p>通过所有测例。</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="id5">
@@ -439,8 +447,25 @@ m 个元素。初始时，Work = Available ；结束向量 Finish，表示系统
 <p>注意目录要求，报告命名 <code class="docutils literal notranslate"><span class="pre">lab5.md</span></code> 或 <code class="docutils literal notranslate"><span class="pre">lab5.pdf</span></code>，位于 reports 目录下。 后续实验同理。</p>
 <ul class="simple">
 <li><p>简单总结你实现的功能（200字以内，不要贴代码）及你完成本次实验所用的时间。</p></li>
-<li><p>完成 ch8 问答题。</p></li>
+<li><p>完成问答题。</p></li>
+<li><p>加入 <a class="reference internal" href="../honorcode.html"><span class="doc">荣誉准则</span></a> 的内容。否则，你的提交将视作无效，本次实验的成绩将按“0”分计。</p></li>
+<li><p>推荐markdown文档格式。</p></li>
 <li><p>(optional) 你对本次实验设计及难度/工作量的看法，以及有哪些需要改进的地方，欢迎畅所欲言。</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>选作题目<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>选做题目列表</p>
+<ul class="simple">
+<li><p>基于多核的OS内核线程支持，内核支持抢占，支持多核方式下的同步互斥</p></li>
+<li><p>提升多核的OS内核性能，实现内核中的并行性能优化（fs中的缓冲区管理并行化, 物理内存分配的并行化）</p></li>
+<li><p>更通用的内核+应用的死锁检查（参考Linux）</p></li>
+</ul>
+<p>提交要求</p>
+<ul class="simple">
+<li><p>实现代码（包括基本的注释）</p></li>
+<li><p>设计与功能/性能测试分析文档，测试用例。</p></li>
+<li><p>鼓励形成可脱离OS独立存在的库，可以裸机测试或在用户态测试（比如easyfs那样）</p></li>
 </ul>
 </div>
 </div>
@@ -503,11 +528,12 @@ m 个元素。初始时，Work = Available ；结束向量 Finish，表示系统
 <li><a class="reference internal" href="#id1">本章任务</a></li>
 <li><a class="reference internal" href="#id2">编程作业</a><ul>
 <li><a class="reference internal" href="#id3">死锁检测</a></li>
-<li><a class="reference internal" href="#id4">实验结果</a></li>
+<li><a class="reference internal" href="#id4">实验要求</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#id5">问答作业</a></li>
 <li><a class="reference internal" href="#id6">报告要求</a></li>
+<li><a class="reference internal" href="#id7">选作题目</a></li>
 </ul>
 </li>
 </ul>
