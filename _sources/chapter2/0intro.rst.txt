@@ -37,8 +37,8 @@
 
 .. code-block:: console
 
-   $ cd uCore-Tutorial-Code-2022A
-   $ git clone https://github.com/LearningOS/uCore-Tutorial-Test-2022A.git user
+   $ cd uCore-Tutorial-Code-2023S
+   $ git clone https://github.com/LearningOS/uCore-Tutorial-Test-2023S.git user
 
 上面的指令会将测例仓库克隆到代码仓库下并命名为 ``user`` ，注意 ``/user`` 在代码仓库的 ``.gitignore`` 中，因此不会出现 ``.git`` 文件夹嵌套的问题，并且你 ``checkout`` 代码仓库时也不会影响测例仓库的内容。
 
@@ -130,4 +130,4 @@
 
 更加详细的内容，主要在 :ref:`实现批处理操作系统  <term-batchos>` 小节中讲解。
 
-为了让Binary应用能够启动和运行，操作系统还需给Binary应用分配好执行环境所需一系列的资源。这主要包括设置好用户栈和内核栈（在应用在用户态和内核在内核态需要有各自的栈），实现Trap 上下文的保存与恢复（让应用能够在发出系统调用到内核态后，还能回到用户态继续执行），完成Trap 分发与处理等工作。由于涉及用户态与内核态之间的特权级切换细节的汇编代码，与硬件细节联系紧密，所以 :ref:`这部分内容 <term-trap-handle>` 是本章中理解比较困难的地方。如果要了解清楚，需要对涉及到的CSR寄存器的功能有清楚的认识。这就需要看看 `RISC-V手册 <http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-2022Ap1.pdf>`_ 的第十章或更加详细的RISC-V的特权级规范文档了。有了上面的实现后，就剩下最后一步，实现 **执行应用程序** 的操作系统功能，其主要实现在 ``run_next_app`` 函数中 。
+为了让Binary应用能够启动和运行，操作系统还需给Binary应用分配好执行环境所需一系列的资源。这主要包括设置好用户栈和内核栈（在应用在用户态和内核在内核态需要有各自的栈），实现Trap 上下文的保存与恢复（让应用能够在发出系统调用到内核态后，还能回到用户态继续执行），完成Trap 分发与处理等工作。由于涉及用户态与内核态之间的特权级切换细节的汇编代码，与硬件细节联系紧密，所以 :ref:`这部分内容 <term-trap-handle>` 是本章中理解比较困难的地方。如果要了解清楚，需要对涉及到的CSR寄存器的功能有清楚的认识。这就需要看看 `RISC-V手册 <http://crva.ict.ac.cn/wjxz/202202/P020220217666841292320.pdf>`_ 的第十章或更加详细的RISC-V的特权级规范文档了。有了上面的实现后，就剩下最后一步，实现 **执行应用程序** 的操作系统功能，其主要实现在 ``run_next_app`` 函数中 。

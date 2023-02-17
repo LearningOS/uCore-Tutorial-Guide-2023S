@@ -64,9 +64,9 @@ github 多仓库使用讲解
 
 .. code-block:: console
 
-   $ cd uCore-Tutorial-Code-2022A
+   $ cd uCore-Tutorial-Code-2023S
    # 你可以将 upstream 改为你喜欢的名字
-   $ git remote add upstream https://github.com/LearningOS/uCore-Tutorial-Code-2022A.git
+   $ git remote add upstream https://github.com/LearningOS/uCore-Tutorial-Code-2023S.git
    # 更新仓库信息
    $ git fetch upstream
    # 查看已添加的远程仓库；应该能看到已有一个 origin 和新添加的 upstream 仓库

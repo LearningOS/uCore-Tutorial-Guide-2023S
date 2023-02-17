@@ -5,14 +5,14 @@
    :hidden:
    :maxdepth: 4
    
-本节我们将完成环境配置并成功运行 uCore-Tutorial-2022A 。整个流程分为下面几个部分：
+本节我们将完成环境配置并成功运行 uCore-Tutorial-2023S 。整个流程分为下面几个部分：
 
 - classroom配置
 - 系统环境配置
 - Riscv下 C 开发环境配置
 - Qemu 模拟器安装
 - 其他工具安装
-- 运行 uCore-Tutorial-2022A
+- 运行 uCore-Tutorial-2023S
 
 目前实验仅支持 Ubuntu18.04 + 操作系统。对于 Windows10 和 macOS 上的用户，可以使用 VMware 或 VirtualBox 安装一台 Ubuntu18.04 虚拟机并在上面进行实验。除了前面提到的几种方法，也可以基于github classroom witch codespaces进行开发。
 
@@ -245,15 +245,15 @@ GDB 调试支持
 
 解压后在 ``bin`` 目录下即可找到 ``riscv64-unknown-elf-gdb`` 以及另外一些常用工具 ``objcopy/objdump/readelf`` 等。
 
-在 Qemu 平台上运行 uCore-Tutorial-2022A
+在 Qemu 平台上运行 uCore-Tutorial-2023S
 ------------------------------------------------------------
 
 到这里，恭喜你完成了实验环境的配置，可以开始阅读教程的正文部分了！可以直接clone下面的仓库来开始OS之旅：
 
 .. code-block:: bash
 
-   git clone https://github.com/LearningOS/uCore-Tutorial-Code-2022A.git
-   cd uCore-Tutorial-Code-2022A
+   git clone https://github.com/LearningOS/uCore-Tutorial-Code-2023S.git
+   cd uCore-Tutorial-Code-2023S
 
 其他的章节需要处理用户代码，我们可以先运行不需要处理用户代码的 ch1 分支：
 
