@@ -22,8 +22,11 @@ chapter5练习
 
 spawn 系统调用定义( `标准spawn看这里 <https://man7.org/linux/man-pages/man3/posix_spawn.3.html>`_ )：
 
+.. code-block:: c
+
+  int sys_spawn(char *filename)
+
 - syscall ID: 400
-- C 接口： ``int spawn(char *filename)`` 
 - 功能：相当于 fork + exec，新建子进程并执行目标程序。 
 - 说明：成功返回子进程id，否则返回 -1。  
 - 可能的错误： 
@@ -58,13 +61,17 @@ lab3中我们引入了任务调度的概念，可以在不同任务之间切换�
 - 进程初始 stride 设置为 0 即可。
 - 进程初始优先级设置为 16。
 
-实验首先要求新增 syscall ``sys_set_priority``:
+为了实现该调度算法，内核还要增加 ``sys_set_priority`` 系统调用:
+
+.. code-block:: c
+
+  int sys_set_priority(long long prio);
 
 * 功能描述：设定进程优先级
   * syscall ID: 140
   * 功能：设定进程优先级。
-  * C 接口：`int setpriority(long long prio);`
   * 说明：设定自身进程优先级，只要 prio 在 [2, isize_max] 就成功，返回 prio，否则返回 -1。
+
 * 针对测例
   * `ch5_setprio`
 
@@ -81,10 +88,26 @@ lab3中我们引入了任务调度的概念，可以在不同任务之间切换�
 - stride 算法要找到　stride 最小的进程，使用优先级队列是效率不错的办法，但是我们的实验测例很简单，所以效率完全不是问题。事实上，我很推荐使用暴力扫一遍的办法找最小值。
 - 注意设置进程的初始优先级。
 
+.. 实验结果
+.. +++++++++++++++++++++++++++++++++++++++++
+
+.. 本实验采用了github classroom的自动评分功能，完成实验提交（git push）后会触发自动测试，实验测试结果可以 `在线统计 <https://ucore-rv-64.github.io/classroom-grading/>_` 中查看。
+
 实验结果
 +++++++++++++++++++++++++++++++++++++++++
 
-本实验采用了github classroom的自动评分功能，完成实验提交（git push）后会触发自动测试，实验测试结果可以在在线统计<https://ucore-rv-64.github.io/classroom-grading/>中查看。
+* 实现分支：ch5。
+* 实验目录请参考 ch3。注意在reports中放入lab1-3的所有报告。
+* 通过所有测例。
+* 在 os 目录下 make run BASE=2 加载所有测例， ch5_usertest 打包了所有你需要通过的测例， 你也可以通过修改这个文件调整本地测试的内容, 或者单独运行某测例来纠正特定的错误。 ch5_stride 检查 stride 调度算法是否满足公平性要求，六个子程序运行的次数应该大致与其优先级呈正比，测试通过标准是 :math:`\max{\frac{runtimes}{prio}}/ \min{\frac{runtimes}{prio}} < 1.5` .
+
+CI 的原理是用 ch5_usertest 替代 ch5b_initproc ，使内核在所有测例执行完后直接退出。
+
+从本章开始，你的内核必须前向兼容，能通过前一章的所有测例。
+
+.. note::
+
+    利用 ``git cherry-pick`` 系列指令，能方便地将前一章分支 commit 移植到本章分支。
 
 问答作业
 --------------------------------------------
@@ -124,5 +147,8 @@ stride 算法深入
 注意目录要求，报告命名 ``lab3.md``，位于 ``reports`` 目录下。 后续实验同理。
 
 - 注明姓名学号。
-- 完成 ch5 问答作业。
-- [可选，不占分]你对本次实验设计及难度的看法。
+- 简单总结你实现的功能（200字以内，不要贴代码）。
+- 完成问答题。
+- 加入 :doc:`/honorcode` 的内容。否则，你的提交将视作无效，本次实验的成绩将按“0”分计。
+- 推荐markdown文档格式。
+- (optional) 你对本次实验设计及难度/工作量的看法，以及有哪些需要改进的地方，欢迎畅所欲言。

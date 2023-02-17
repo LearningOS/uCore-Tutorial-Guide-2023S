@@ -290,9 +290,11 @@
 <h3>进程创建<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>大家一定好奇过为啥进程创建要用 fork + execve 这么一个奇怪的系统调用，就不能直接搞一个新进程吗？思而不学则殆，我们就来试一试！这章的编程练习请大家实现一个完全 DIY 的系统调用 spawn，用以创建一个新进程。</p>
 <p>spawn 系统调用定义( <a class="reference external" href="https://man7.org/linux/man-pages/man3/posix_spawn.3.html">标准spawn看这里</a> )：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">sys_spawn</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">filename</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
 <ul class="simple">
 <li><p>syscall ID: 400</p></li>
-<li><p>C 接口： <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">spawn(char</span> <span class="pre">*filename)</span></code></p></li>
 <li><p>功能：相当于 fork + exec，新建子进程并执行目标程序。</p></li>
 <li><p>说明：成功返回子进程id，否则返回 -1。</p></li>
 <li><dl class="simple">
@@ -327,12 +329,14 @@
 <li><p>进程初始 stride 设置为 0 即可。</p></li>
 <li><p>进程初始优先级设置为 16。</p></li>
 </ul>
-<p>实验首先要求新增 syscall <code class="docutils literal notranslate"><span class="pre">sys_set_priority</span></code>:</p>
+<p>为了实现该调度算法，内核还要增加 <code class="docutils literal notranslate"><span class="pre">sys_set_priority</span></code> 系统调用:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">sys_set_priority</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">prio</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
 <ul class="simple">
 <li><p>功能描述：设定进程优先级
 * syscall ID: 140
 * 功能：设定进程优先级。
-* C 接口：<cite>int setpriority(long long prio);</cite>
 * 说明：设定自身进程优先级，只要 prio 在 [2, isize_max] 就成功，返回 prio，否则返回 -1。</p></li>
 <li><p>针对测例
 * <cite>ch5_setprio</cite></p></li>
@@ -351,7 +355,18 @@
 </div>
 <div class="section" id="id4">
 <h3>实验结果<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
-<p>本实验采用了github classroom的自动评分功能，完成实验提交（git push）后会触发自动测试，实验测试结果可以在在线统计&lt;<a class="reference external" href="https://ucore-rv-64.github.io/classroom-grading/">https://ucore-rv-64.github.io/classroom-grading/</a>&gt;中查看。</p>
+<ul class="simple">
+<li><p>实现分支：ch5。</p></li>
+<li><p>实验目录请参考 ch3。注意在reports中放入lab1-3的所有报告。</p></li>
+<li><p>通过所有测例。</p></li>
+<li><p>在 os 目录下 make run BASE=2 加载所有测例， ch5_usertest 打包了所有你需要通过的测例， 你也可以通过修改这个文件调整本地测试的内容, 或者单独运行某测例来纠正特定的错误。 ch5_stride 检查 stride 调度算法是否满足公平性要求，六个子程序运行的次数应该大致与其优先级呈正比，测试通过标准是 <span class="math notranslate nohighlight">\(\max{\frac{runtimes}{prio}}/ \min{\frac{runtimes}{prio}} &lt; 1.5\)</span> .</p></li>
+</ul>
+<p>CI 的原理是用 ch5_usertest 替代 ch5b_initproc ，使内核在所有测例执行完后直接退出。</p>
+<p>从本章开始，你的内核必须前向兼容，能通过前一章的所有测例。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>利用 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">cherry-pick</span></code> 系列指令，能方便地将前一章分支 commit 移植到本章分支。</p>
+</div>
 </div>
 </div>
 <div class="section" id="id5">
@@ -389,8 +404,11 @@
 <p>注意目录要求，报告命名 <code class="docutils literal notranslate"><span class="pre">lab3.md</span></code>，位于 <code class="docutils literal notranslate"><span class="pre">reports</span></code> 目录下。 后续实验同理。</p>
 <ul class="simple">
 <li><p>注明姓名学号。</p></li>
-<li><p>完成 ch5 问答作业。</p></li>
-<li><p>[可选，不占分]你对本次实验设计及难度的看法。</p></li>
+<li><p>简单总结你实现的功能（200字以内，不要贴代码）。</p></li>
+<li><p>完成问答题。</p></li>
+<li><p>加入 <a class="reference internal" href="../honorcode.html"><span class="doc">荣誉准则</span></a> 的内容。否则，你的提交将视作无效，本次实验的成绩将按“0”分计。</p></li>
+<li><p>推荐markdown文档格式。</p></li>
+<li><p>(optional) 你对本次实验设计及难度/工作量的看法，以及有哪些需要改进的地方，欢迎畅所欲言。</p></li>
 </ul>
 </div>
 </div>
