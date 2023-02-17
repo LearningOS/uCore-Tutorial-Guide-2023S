@@ -73,7 +73,7 @@ Blocks 给出 ``os`` 目录也占用 8 个块进行存储。实际上目录也�
 
 有了目录之后，我们就可以将所有的文件和目录组织为一种被称为 **目录树** (Directory Tree) 的有根树结构（不考虑软链接）。树中的每个节点都是一个文件或目录，一个目录下面的所有的文件和子目录都是它的孩子。可以看出所有的文件都是目录树的叶子节点。目录树的根节点也是一个目录，它被称为 **根目录** (Root Directory)。目录树中的每个目录和文件都可以用它的 **绝对路径** (Absolute Path) 来进行索引，该绝对路径是目录树上的根节点到待索引的目录和文件所在的节点之间自上而下的路径上的所有节点的文件或目录名两两之间加上路径分隔符拼接得到的。例如，在 Linux 上，根目录的绝对路径是 ``/`` ，路径分隔符也是 ``/`` ，因此：
 
-- ``main.c`` 的绝对路径是 ``/home/oslab/workspace/UCORE/uCore-Tutorial-2022023S/main.c`` ；
+- ``main.c`` 的绝对路径是 ``/home/oslab/workspace/UCORE/uCore-Tutorial-2023S/os/main.c`` ；
 - ``os`` 目录的绝对路径则是 ``/home/oslab/workspace/UCORE/uCore-Tutorial-2023S/os`` 。
 
 上面的绝对路径因具体环境而异。
