@@ -377,13 +377,12 @@ sudo apt upgrade
 <li><p>首先安装Docker: <a class="reference external" href="https://www.docker.com/get-started">https://www.docker.com/get-started</a></p></li>
 <li><p>接着拉取我们的Docker镜像文件：</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull nzpznk/oslab-c-env
-docker pull registry.cn-hangzhou.aliyuncs.com/nzpznk/oslab-c-env
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull tclab/ucore-env
 </pre></div>
 </div>
 </div></blockquote>
 </li>
-<li><p>查看下载的镜像文件：docker image ls (nzpznk/oslab-c-env or registry.cn-hangzhou.aliyuncs.com/nzpznk/oslab-c-env)</p></li>
+<li><p>查看下载的镜像文件：docker image ls tclab/ucore-env</p></li>
 <li><p>使用下载的镜像文件创建一个名字叫container_name(可自己指定)的容器，并获得容器的bash shell: docker run -it –name container_name image_name /bin/bash</p></li>
 <li><p>一些常用的指令：</p>
 <blockquote>

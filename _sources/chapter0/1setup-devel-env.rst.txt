@@ -141,10 +141,9 @@ Docker 环境安装(可选，已完成上述步骤的可以忽略)
 
    .. code-block:: bash
 
-      docker pull nzpznk/oslab-c-env
-      docker pull registry.cn-hangzhou.aliyuncs.com/nzpznk/oslab-c-env
+      docker pull tclab/ucore-env
 
-- 查看下载的镜像文件：docker image ls (nzpznk/oslab-c-env or registry.cn-hangzhou.aliyuncs.com/nzpznk/oslab-c-env)
+- 查看下载的镜像文件：docker image ls tclab/ucore-env
 
 - 使用下载的镜像文件创建一个名字叫container_name(可自己指定)的容器，并获得容器的bash shell: docker run -it --name container_name image_name /bin/bash
 
