@@ -377,11 +377,25 @@
 </dl>
 </li>
 <li><p>返回值：如果出现了错误则返回 -1，否则返回 0。</p></li>
-<li><p>可能的错误</p></li>
+<li><dl class="simple">
+<dt>可能的错误</dt><dd><ul class="simple">
 <li><p>fd 无效。</p></li>
 <li><p>st 地址非法。</p></li>
 </ul>
-<p>正确实现后，你的 os 应该能够正确运行 ch6_file* 对应的测试用例，在 shell 中执行 ch6_usertest 来执行测试。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3>实验要求<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>实现分支：ch6。</p></li>
+<li><p>实验目录要求不变。</p></li>
+<li><p>通过所有测例。</p></li>
+</ul>
+<p>在 os 目录下 <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">run</span> <span class="pre">BASE=2</span></code> 加载所有测例， 正确实现后，你的 <code class="docutils literal notranslate"><span class="pre">os</span></code> 应该能够正确运行 <code class="docutils literal notranslate"><span class="pre">ch6_file*</span></code> 对应的测试用例，在 <code class="docutils literal notranslate"><span class="pre">shell</span></code> 中执行 <code class="docutils literal notranslate"><span class="pre">ch6_usertest</span></code> 来执行测试。 <code class="docutils literal notranslate"><span class="pre">ch6_usertest</span></code> 打包了所有你需要通过的测例，你也可以通过修改这个文件调整本地测试的内容。</p>
+<p>你的内核必须前向兼容，能通过前一章的所有测例。</p>
 </div>
 <div class="section" id="tips">
 <h3>Tips<a class="headerlink" href="#tips" title="永久链接至标题">¶</a></h3>
@@ -391,29 +405,42 @@
 <li><p>unlink 有删除文件的语义，如果 link 计数为 0，需要删除 inode 和对应的数据块，为此你需要正确调用 <code class="docutils literal notranslate"><span class="pre">ivalid</span></code> 、 <code class="docutils literal notranslate"><span class="pre">iupdate</span></code> 、 <code class="docutils literal notranslate"><span class="pre">iput</span></code> （如果测试遇到bug了不妨再看看这句话），并取消 <code class="docutils literal notranslate"><span class="pre">iput</span></code> 中判断条件的注释。你可能需要修改 <code class="docutils literal notranslate"><span class="pre">iput</span></code> 注释中的变量名（如果你的计数变量不叫 nlink）。</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h3>实验结果<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id6">
+<h3>实验结果<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <p>本实验采用了github classroom的自动评分功能，完成实验提交（git push）后会触发自动测试，实验测试结果可以在在线统计&lt;<a class="reference external" href="https://ucore-rv-64.github.io/classroom-grading/">https://ucore-rv-64.github.io/classroom-grading/</a>&gt;中查看。</p>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>问答作业<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id7">
+<h2>问答作业<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
 <li><p>在我们的文件系统中，root inode起着什么作用？如果root inode中的内容损坏了，会发生什么？</p></li>
 </ol>
 </div>
-<div class="section" id="id7">
-<h2>报告要求<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id8">
+<h2>报告要求<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <p>注意目录要求，报告命名 <code class="docutils literal notranslate"><span class="pre">lab4.md</span></code> 或 <code class="docutils literal notranslate"><span class="pre">lab4.pdf</span></code>，位于 <code class="docutils literal notranslate"><span class="pre">reports</span></code> 目录下。</p>
 <p>特别的，ch7 的问答问题要一并写入本分支的报告。</p>
 <p>报告内容：</p>
 <ul class="simple">
-<li><p>注明姓名学号。</p></li>
-<li><p>简单总结本次实验你新添加的代码。</p></li>
+<li><p>简单总结你实现的功能（200字以内，不要贴代码）。</p></li>
+<li><p>完成问答题。</p></li>
+<li><p>加入 <a class="reference internal" href="../honorcode.html"><span class="doc">荣誉准则</span></a> 的内容。否则，你的提交将视作无效，本次实验的成绩将按“0”分计。</p></li>
+<li><p>推荐markdown文档格式。</p></li>
+<li><p>(optional) 你对本次实验设计及难度/工作量的看法，以及有哪些需要改进的地方，欢迎畅所欲言。</p></li>
 </ul>
+</div>
+<div class="section" id="id9">
+<h2>选做题目<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<p>选作题目列表</p>
 <ul class="simple">
-<li><p>完成 ch6 问答问题</p></li>
-<li><p>(optional) 你对本次实验设计及难度的看法。</p></li>
+<li><p>按需加载执行文件(Demanding Paging)</p></li>
+<li><p>log-easyfs：实现基于日志的可靠文件系统（可参考xv6-fs）</p></li>
+</ul>
+<p>提交要求</p>
+<ul class="simple">
+<li><p>实现代码（包括基本的注释）</p></li>
+<li><p>设计与功能/性能测试分析文档，测试用例。</p></li>
+<li><p>鼓励形成可脱离OS独立存在的库，可以裸机测试或在用户态测试（比如easyfs那样）</p></li>
 </ul>
 </div>
 </div>
@@ -476,12 +503,14 @@
 <li><a class="reference internal" href="#id1">本章任务</a></li>
 <li><a class="reference internal" href="#id2">编程作业</a><ul>
 <li><a class="reference internal" href="#id3">硬链接</a></li>
+<li><a class="reference internal" href="#id5">实验要求</a></li>
 <li><a class="reference internal" href="#tips">Tips</a></li>
-<li><a class="reference internal" href="#id5">实验结果</a></li>
+<li><a class="reference internal" href="#id6">实验结果</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6">问答作业</a></li>
-<li><a class="reference internal" href="#id7">报告要求</a></li>
+<li><a class="reference internal" href="#id7">问答作业</a></li>
+<li><a class="reference internal" href="#id8">报告要求</a></li>
+<li><a class="reference internal" href="#id9">选做题目</a></li>
 </ul>
 </li>
 </ul>
