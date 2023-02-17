@@ -299,9 +299,11 @@
 <p>你有没有想过，当你在 C++ 语言中写下的 <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">int[100];</span></code> 执行时可能会发生哪些事情？你可能已经发现，目前我们给用户程序的内存都是固定的并没有增长的能力，这些程序是不能执行 <code class="docutils literal notranslate"><span class="pre">new</span></code> 这类导致内存使用增加的操作。libc 中通过 <a class="reference external" href="https://linux.die.net/man/2/sbrk">sbrk</a> 系统调用增加进程可使用的堆空间，这也是本来的题目设计，但是一位热心的往年助教J学长表示：这一点也不酷！他推荐了另一个申请内存的系统调用。</p>
 <p><a class="reference external" href="https://man7.org/linux/man-pages/man2/mmap.2.html">mmap</a> 本身主要使用来在内存中映射文件的，这里我们简化它的功能，仅仅使用匿名映射。</p>
 <p>mmap 系统调用新定义：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">mmap</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flag</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
 <ul class="simple">
 <li><p>syscall ID：222</p></li>
-<li><p>接口： <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">mmap(void*</span> <span class="pre">start,</span> <span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">long</span> <span class="pre">len,</span> <span class="pre">int</span> <span class="pre">port，</span> <span class="pre">int</span> <span class="pre">flag,</span> <span class="pre">int</span> <span class="pre">fd)</span></code></p></li>
 <li><p>功能：申请长度为 len 字节的匿名物理内存（不要求实际物理内存位置，可以随便找一块），并映射到 addr 开始的虚存，内存页属性为 port。</p></li>
 <li><dl class="simple">
 <dt>参数：</dt><dd><ul>
@@ -342,9 +344,11 @@
 </li>
 </ul>
 <p>munmap 系统调用新定义：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">munmap</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">len</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
 <ul class="simple">
 <li><p>syscall ID：215</p></li>
-<li><p>接口： <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">munmap(void*</span> <span class="pre">start,</span> <span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">long</span> <span class="pre">len)</span></code></p></li>
 <li><p>功能：取消一块虚存的映射。</p></li>
 <li><p>参数：同 mmap</p></li>
 <li><dl class="simple">
@@ -372,12 +376,18 @@
 </ul>
 </div>
 <div class="section" id="id4">
-<h3>实验结果<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<h3>实验要求<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>实现分支：ch4。</p>
+<p>实现 mmap 和 munmap 两个系统调用，通过所有测例。</p>
+<p>实验目录请参考 ch3，报告命名 lab2.md/pdf</p>
+</div>
+<div class="section" id="id5">
+<h3>实验结果<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>本实验采用了github classroom的自动评分功能，完成实验提交（git push）后会触发自动测试，实验测试结果可以在在线统计&lt;<a class="reference external" href="https://ucore-rv-64.github.io/classroom-grading/">https://ucore-rv-64.github.io/classroom-grading/</a>&gt;中查看。</p>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>问答作业<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h2>问答作业<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <ol class="arabic">
 <li><p>请列举 SV39 页表页表项的组成，结合课堂内容，描述其中的标志位有何作用／潜在作用？</p></li>
 <li><p>缺页</p>
@@ -414,13 +424,14 @@
 </li>
 </ol>
 </div>
-<div class="section" id="id6">
-<h2>报告要求<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id7">
+<h2>报告要求<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li><p>注意目录要求，报告命名 <code class="docutils literal notranslate"><span class="pre">lab2.md``（或</span> <span class="pre">pdf），位于</span> <span class="pre">``reports</span></code> 目录下。命名错误视作没有提交。不需要删除 <code class="docutils literal notranslate"><span class="pre">lab1.md</span></code>。后续实验同理。</p></li>
 <li><p>简单总结本次实验你新添加的代码。</p></li>
 <li><p>完成 ch4 问答作业。</p></li>
-<li><p>[可选，不占分]你对本次实验设计及难度的看法。</p></li>
+<li><p>加入 <a class="reference external" href="https://learningos.github.io/rCore-Tutorial-Guide-2023S/honorcode.html">荣誉准则</a> 的内容。否则，你的提交将视作无效，本次实验的成绩将按“0”分计。</p></li>
+<li><p>(optional) 你对本次实验设计及难度/工作量的看法，以及有哪些需要改进的地方，欢迎畅所欲言。</p></li>
 </ul>
 </div>
 </div>
@@ -484,11 +495,12 @@
 <li><a class="reference internal" href="#id2">编程作业</a><ul>
 <li><a class="reference internal" href="#sys-gettimeofday-taskinfo">重新实现 sys_gettimeofday以及 taskinfo</a></li>
 <li><a class="reference internal" href="#mmap">mmap 匿名映射</a></li>
-<li><a class="reference internal" href="#id4">实验结果</a></li>
+<li><a class="reference internal" href="#id4">实验要求</a></li>
+<li><a class="reference internal" href="#id5">实验结果</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">问答作业</a></li>
-<li><a class="reference internal" href="#id6">报告要求</a></li>
+<li><a class="reference internal" href="#id6">问答作业</a></li>
+<li><a class="reference internal" href="#id7">报告要求</a></li>
 </ul>
 </li>
 </ul>

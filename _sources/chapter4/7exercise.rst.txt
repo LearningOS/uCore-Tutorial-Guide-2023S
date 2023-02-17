@@ -36,8 +36,11 @@ mmap 匿名映射
 
 mmap 系统调用新定义：
 
+.. code-block:: c
+
+    int mmap(void* start, unsigned long long len, int port, int flag, int fd)
+
 - syscall ID：222
-- 接口： ``int mmap(void* start, unsigned long long len, int port， int flag, int fd)``
 - 功能：申请长度为 len 字节的匿名物理内存（不要求实际物理内存位置，可以随便找一块），并映射到 addr 开始的虚存，内存页属性为 port。
 - 参数：
     - start：需要映射的虚存起始地址。
@@ -59,8 +62,12 @@ mmap 系统调用新定义：
 
 munmap 系统调用新定义：
 
+
+.. code-block:: C
+
+    int munmap(void* start, unsigned long long len)
+
 - syscall ID：215
-- 接口： ``int munmap(void* start, unsigned long long len)``
 - 功能：取消一块虚存的映射。
 - 参数：同 mmap
 - 说明：
@@ -77,6 +84,15 @@ tips:
 - 注意 kalloc 不支持连续物理内存分配，所以你必须把多个页的 mmap 逐页进行映射。
 - 一定要注意 mmap 是的页表项，注意 riscv 页表项的格式与 port 的区别。
 - 你增加 PTE_U 了吗？
+
+
+实验要求
++++++++++++++++++++++++++++++++++++++++++
+实现分支：ch4。
+
+实现 mmap 和 munmap 两个系统调用，通过所有测例。
+
+实验目录请参考 ch3，报告命名 lab2.md/pdf
 
 实验结果
 +++++++++++++++++++++++++++++++++++++++++
@@ -124,4 +140,5 @@ tips:
 - 注意目录要求，报告命名 ``lab2.md``（或 pdf），位于 ``reports`` 目录下。命名错误视作没有提交。不需要删除 ``lab1.md``。后续实验同理。
 - 简单总结本次实验你新添加的代码。
 - 完成 ch4 问答作业。
-- [可选，不占分]你对本次实验设计及难度的看法。
+- 加入 `荣誉准则 <https://learningos.github.io/rCore-Tutorial-Guide-2023S/honorcode.html>`_ 的内容。否则，你的提交将视作无效，本次实验的成绩将按“0”分计。
+- (optional) 你对本次实验设计及难度/工作量的看法，以及有哪些需要改进的地方，欢迎畅所欲言。
