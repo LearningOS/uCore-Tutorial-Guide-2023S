@@ -105,7 +105,8 @@ C 开发环境配置
 .. code-block:: bash
    
    cd /usr/local
-   sudo wget -O riscv64-linux-musl-cross.tgz "https://cloud.tsinghua.edu.cn/f/b07bac9bcfa14f1dae66/?dl=1"
+   # 如果链接失效，可以用官网链接下载并提醒助教更新云盘地址： https://musl.cc/riscv64-linux-musl-cross.tgz
+   sudo wget -O riscv64-linux-musl-cross.tgz "https://cloud.tsinghua.edu.cn/f/11646b3c420d4055ba20/?dl=1"
 
    sudo tar xzf riscv64-linux-musl-cross.tgz
 
@@ -183,7 +184,7 @@ Qemu 模拟器安装
                  gawk build-essential bison flex texinfo gperf libtool patchutils bc ninja-build \
                  zlib1g-dev libexpat-dev pkg-config  libglib2.0-dev libpixman-1-dev git tmux python3
    # 下载源码包 
-   # 如果链接失效也可以使用官网链接：https://download.qemu.org/qemu-7.0.0.tar.xz
+   # 如果链接失效，可以使用官网链接下载并提醒助教更新云盘地址： https://download.qemu.org/qemu-7.0.0.tar.xz
    wget -O qemu-7.0.0.tar.xz "https://cloud.tsinghua.edu.cn/f/8ba524dbede24ce79d06/?dl=1"
    # 解压
    tar xJf qemu-7.0.0.tar.xz
