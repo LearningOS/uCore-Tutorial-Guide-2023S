@@ -365,7 +365,7 @@
 </div>
 <p>接下来，继续安装用于交叉编译的musl-gcc,这里我们仍然使用/usr/local存放它。下面的步骤和上一步的安装是一样的：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/local
-sudo wget -O riscv64-linux-musl-cross.tgz https://cloud.tsinghua.edu.cn/f/b07bac9bcfa14f1dae66/?dl<span class="o">=</span><span class="m">1</span>
+sudo wget -O riscv64-linux-musl-cross.tgz <span class="s2">"https://cloud.tsinghua.edu.cn/f/b07bac9bcfa14f1dae66/?dl=1"</span>
 
 sudo tar xzf riscv64-linux-musl-cross.tgz
 </pre></div>
@@ -434,9 +434,8 @@ sudo apt install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev lib
               gawk build-essential bison flex texinfo gperf libtool patchutils bc ninja-build <span class="se">\</span>
               zlib1g-dev libexpat-dev pkg-config  libglib2.0-dev libpixman-1-dev git tmux python3
 <span class="c1"># 下载源码包</span>
-<span class="c1"># 如果下载速度过慢可以使用我们提供的百度网盘链接：https://pan.baidu.com/s/1z-iWIPjxjxbdFS2Qf-NKxQ</span>
-<span class="c1"># 提取码 8woe</span>
-wget https://download.qemu.org/qemu-7.0.0.tar.xz
+<span class="c1"># 如果链接失效也可以使用官网链接：https://download.qemu.org/qemu-7.0.0.tar.xz</span>
+wget -O qemu-7.0.0.tar.xz <span class="s2">"https://cloud.tsinghua.edu.cn/f/8ba524dbede24ce79d06/?dl=1"</span>
 <span class="c1"># 解压</span>
 tar xJf qemu-7.0.0.tar.xz
 <span class="c1"># 编译安装并配置 RISC-V 支持</span>

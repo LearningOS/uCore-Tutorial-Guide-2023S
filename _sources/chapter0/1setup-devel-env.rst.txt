@@ -105,7 +105,7 @@ C 开发环境配置
 .. code-block:: bash
    
    cd /usr/local
-   sudo wget -O riscv64-linux-musl-cross.tgz https://cloud.tsinghua.edu.cn/f/b07bac9bcfa14f1dae66/?dl=1
+   sudo wget -O riscv64-linux-musl-cross.tgz "https://cloud.tsinghua.edu.cn/f/b07bac9bcfa14f1dae66/?dl=1"
 
    sudo tar xzf riscv64-linux-musl-cross.tgz
 
@@ -183,9 +183,8 @@ Qemu 模拟器安装
                  gawk build-essential bison flex texinfo gperf libtool patchutils bc ninja-build \
                  zlib1g-dev libexpat-dev pkg-config  libglib2.0-dev libpixman-1-dev git tmux python3
    # 下载源码包 
-   # 如果下载速度过慢可以使用我们提供的百度网盘链接：https://pan.baidu.com/s/1z-iWIPjxjxbdFS2Qf-NKxQ
-   # 提取码 8woe
-   wget https://download.qemu.org/qemu-7.0.0.tar.xz
+   # 如果链接失效也可以使用官网链接：https://download.qemu.org/qemu-7.0.0.tar.xz
+   wget -O qemu-7.0.0.tar.xz "https://cloud.tsinghua.edu.cn/f/8ba524dbede24ce79d06/?dl=1"
    # 解压
    tar xJf qemu-7.0.0.tar.xz
    # 编译安装并配置 RISC-V 支持
