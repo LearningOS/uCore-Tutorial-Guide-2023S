@@ -85,8 +85,9 @@ C 开发环境配置
 .. code-block:: bash
    
    cd /usr/local
-   # 如果链接失效，可以用官网链接下载并提醒助教更新云盘地址： https://musl.cc/riscv64-linux-musl-cross.tgz
-   sudo wget -O riscv64-linux-musl-cross.tgz "https://cloud.tsinghua.edu.cn/f/11646b3c420d4055ba20/?dl=1"
+   # 如果链接失效，可以用官网链接下载并提醒助教更新云盘地址： https://more.musl.cc/10/x86_64-linux-musl/riscv64-linux-musl-cross.tgz
+   # 注意这里是 10.2.1 版本，如果从其他地方下载请务必注意版本号一致
+   sudo wget -O riscv64-linux-musl-cross.tgz "https://cloud.tsinghua.edu.cn/f/fb3c598e7e214a828e6b/?dl=1"
 
    sudo tar xzf riscv64-linux-musl-cross.tgz
 

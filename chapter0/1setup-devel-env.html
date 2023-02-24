@@ -351,8 +351,9 @@
 </div>
 <p>接下来，继续安装用于交叉编译的musl-gcc,这里我们仍然使用/usr/local存放它。下面的步骤和上一步的安装是一样的：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/local
-<span class="c1"># 如果链接失效，可以用官网链接下载并提醒助教更新云盘地址： https://musl.cc/riscv64-linux-musl-cross.tgz</span>
-sudo wget -O riscv64-linux-musl-cross.tgz <span class="s2">"https://cloud.tsinghua.edu.cn/f/11646b3c420d4055ba20/?dl=1"</span>
+<span class="c1"># 如果链接失效，可以用官网链接下载并提醒助教更新云盘地址： https://more.musl.cc/10/x86_64-linux-musl/riscv64-linux-musl-cross.tgz</span>
+<span class="c1"># 注意这里是 10.2.1 版本，如果从其他地方下载请务必注意版本号一致</span>
+sudo wget -O riscv64-linux-musl-cross.tgz <span class="s2">"https://cloud.tsinghua.edu.cn/f/fb3c598e7e214a828e6b/?dl=1"</span>
 
 sudo tar xzf riscv64-linux-musl-cross.tgz
 </pre></div>
