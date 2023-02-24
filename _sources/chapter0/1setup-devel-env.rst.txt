@@ -14,25 +14,7 @@
 - 其他工具安装
 - 运行 uCore-Tutorial-2023S
 
-目前实验仅支持 Ubuntu18.04 + 操作系统。对于 Windows10 和 macOS 上的用户，可以使用 VMware 或 VirtualBox 安装一台 Ubuntu18.04 虚拟机并在上面进行实验。除了前面提到的几种方法，也可以基于github classroom witch codespaces进行开发。
-
-classroom配置
--------------------------------
-基于github classroom，可方便建立开发用的git repository，并可基于github的 codespace（在线版ubuntu +vscode）在线开发使用。整个开发环境仅仅需要一个网络浏览器。classroom配置步骤如下：
-
-   1.在网络浏览器中用自己的github id登录github.com
-
-   2.接收实验练习uCore-Tutorial-Code-2023S的github classroom在线邀请 <https://classroom.github.com/a/2HJnOy4u>，根据提示接受该实验练习。
-
-   3.完成上一步后，你的实验练习uCore-Tutorial-Code-2023S的github repository会被自动建立好，刷新页面即可看到github repository的链接，点击此github repository的链接，就可看到你要完成的实验了。
-
-   4.在你的实验练习的网页的中上部可以看到一个醒目的code绿色按钮，点击后，可以进一步看到 codespace 标签和醒目的create codesapce on main绿色按钮。请点击这个绿色按钮，就可以进入到在线的ubuntu + vscode环境中。注：当创建好codespace之后，下次也可以使用vscode打开codespace，即在codespace标签有三个点（“···”）的按钮，点击后在“Open in”中选择“Open in Visual Studio Code”。
-   
-   5.配置环境。可以按照下面的环境安装提示在vscode的 `console` 中安装配置开发环境：rustc，qemu等工具。注：也可在vscode的 `console` 中执行 ``make codespaces_setenv`` 来自动安装配置开发环境（执行``sudo``需要root权限，仅需要执行一次）。
-
-   6.然后就可以基于在线vscode进行开发、运行、提交等完整的实验过程了，也可以在配置好环境的其他ubuntu中进行实验。
-
-   7.完成提交后会触发classroom提供的自动测试功能，你可以点击仓库名下边的“Actions”标签查看自动测试的结果。
+目前实验仅支持 Ubuntu18.04 + 操作系统。对于 Windows10 和 macOS 上的用户，可以使用 VMware 或 VirtualBox 安装一台 Ubuntu18.04 虚拟机并在上面进行实验。
 
 系统环境配置
 -------------------------------
