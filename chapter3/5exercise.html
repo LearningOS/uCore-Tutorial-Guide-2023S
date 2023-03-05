@@ -237,7 +237,6 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">附录</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../appendix/classroom_deployment.html">附录 A：部署帮助文档(classroom)</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../appendix-b/index.html">附录 B：常见工具的使用方法(Rust版本)</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
@@ -370,13 +369,9 @@
 <p>你的实现只需且必须通过测例，建议读者感到困惑时先检查测例。</p>
 </div>
 </div>
+</div>
 <div class="section" id="id4">
-<h3>实验结果<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
-<p>本实验采用了github classroom的自动评分功能，完成实验提交（git push）后会触发自动测试，实验测试结果可以在在线统计&lt;<a class="reference external" href="https://ucore-rv-64.github.io/classroom-grading/">https://ucore-rv-64.github.io/classroom-grading/</a>&gt;中查看。</p>
-</div>
-</div>
-<div class="section" id="id5">
-<h2>问答作业<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<h2>问答作业<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <ol class="arabic">
 <li><p>正确进入 U 态后，程序的特征还应有：使用 S 态特权指令，访问 S 态寄存器后会报错。请同学们可以自行测试这些内容（参考 <a class="reference external" href="https://github.com/LearningOS/uCore-Tutorial-Test-2023S/tree/main/src">前三个测例</a> ，描述程序出错行为，同时注意注明你使用的 sbi 及其版本。</p></li>
 <li><p>请结合用例理解 <a class="reference external" href="https://github.com/LearningOS/uCore-Tutorial-Code-2023S/blob/ch3/os/trampoline.S">trampoline.S</a> 中两个函数 <cite>userret</cite> 和 <cite>uservec</cite> 的作用，并回答如下几个问题:</p>
@@ -413,7 +408,7 @@ sd t6, 280(a0)
 </div>
 </li>
 <li><p>进入 S 态是哪一条指令发生的？</p></li>
-<li><p>L75-L76: <cite>ld t0, 16(a0)</cite> 执行之后，<a href="#id7"><span class="problematic" id="id8">`</span></a>t0`中的值是什么，解释该值的由来？</p></li>
+<li><p>L75-L76: <cite>ld t0, 16(a0)</cite> 执行之后，<a href="#id6"><span class="problematic" id="id7">`</span></a>t0`中的值是什么，解释该值的由来？</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-assembly notranslate"><div class="highlight"><pre><span></span>ld t0, 16(a0)
@@ -424,13 +419,14 @@ jr t0
 </li>
 </ol>
 </div>
-<div class="section" id="id9">
-<h2>报告要求<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id8">
+<h2>报告要求<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li><p>简单总结你实现的功能（200字以内，不要贴代码）。</p></li>
 <li><p>完成问答题。</p></li>
+<li><p>推荐markdown文档格式。</p></li>
 <li><p>加入 <a class="reference internal" href="../honorcode.html"><span class="doc">荣誉准则</span></a> 的内容。否则，你的提交将视作无效，本次实验的成绩将按“0”分计。</p></li>
-<li><p>CI 网站提交，注明姓名学号，推荐markdown文档格式。</p></li>
+<li><p>CI 网站提交，注明姓名学号。</p></li>
 <li><p>注意目录要求，报告命名 <code class="docutils literal notranslate"><span class="pre">lab1.md</span></code> 或 <code class="docutils literal notranslate"><span class="pre">lab1.pdf</span></code>，位于 <code class="docutils literal notranslate"><span class="pre">reports</span></code> 目录下。命名错误视作没有提交。后续实验同理。</p></li>
 <li><p>(optional) 你对本次实验设计及难度/工作量的看法，以及有哪些需要改进的地方，欢迎畅所欲言。</p></li>
 </ul>
@@ -499,11 +495,10 @@ jr t0
 <li><a class="reference internal" href="#id1">本章任务</a><ul>
 <li><a class="reference internal" href="#id2">获取任务信息</a></li>
 <li><a class="reference internal" href="#id3">实验要求</a></li>
-<li><a class="reference internal" href="#id4">实验结果</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">问答作业</a></li>
-<li><a class="reference internal" href="#id9">报告要求</a></li>
+<li><a class="reference internal" href="#id4">问答作业</a></li>
+<li><a class="reference internal" href="#id8">报告要求</a></li>
 </ul>
 </li>
 </ul>

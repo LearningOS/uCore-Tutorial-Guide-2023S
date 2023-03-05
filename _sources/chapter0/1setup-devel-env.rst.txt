@@ -7,7 +7,7 @@
    
 本节我们将完成环境配置并成功运行 uCore-Tutorial-2023S 。整个流程分为下面几个部分：
 
-- classroom配置
+.. - classroom配置
 - 系统环境配置
 - Riscv下 C 开发环境配置
 - Qemu 模拟器安装

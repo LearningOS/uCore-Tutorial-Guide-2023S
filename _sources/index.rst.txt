@@ -26,7 +26,7 @@ uCore-Tutorial-Guide 2023 Spring
    :caption: 附录
    :hidden:
 
-   appendix/classroom_deployment.rst
+   .. appendix/classroom_deployment.rst
    appendix-b/index
    appendix-c/index
    appendix-d/index
