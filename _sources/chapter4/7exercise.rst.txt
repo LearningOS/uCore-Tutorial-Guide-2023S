@@ -94,7 +94,7 @@ tips:
 
 实验目录请参考 ch3，报告命名 lab2.md/pdf
 
-..实验结果
+.. 实验结果
  +++++++++++++++++++++++++++++++++++++++++
 
  本实验采用了github classroom的自动评分功能，完成实验提交（git push）后会触发自动测试，实验测试结果可以在在线统计<https://ucore-rv-64.github.io/classroom-grading/>中查看。
