@@ -76,6 +76,9 @@ qemu 拓展阅读: `qemu参数 <https://www.qemu.org/docs/master/system/invocati
 - bios $(bios): 使用制定 bios，这里指向的是我们提供的 rustsbi 的bin文件。
 - kernel： 使用 elf 格式的 kernel。这里就是我们需要写的OS内核了。
 
+.. warning:: 
+   每次在make run之前，尽量先执行make clean以删除缓存，特别是在切换ch分支之后。
+
 make run这个指令，应该会陪伴大家走过接下来所有的实验qaq。它完成了内核代码的编译生成kernel，并按照QEMUOPTS变量指定的参数加载我们的kernel，“加电”启动qemu。 此时，CPU 的其它通用寄存器清零，而 PC 会指向 0x1000 的位置，这里有固化在硬件中的一小段引导代码，它会很快跳转到 0x80000000 的 RustSBI 处。 RustSBI完成硬件初始化后，会跳转到 $(KERNEL_BIN) 所在内存位置 0x80200000 处， 执行我们操作系统的第一条指令。
 
 .. image:: chap1-intro.png

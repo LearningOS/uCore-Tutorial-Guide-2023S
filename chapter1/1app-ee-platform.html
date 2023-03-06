@@ -347,6 +347,10 @@
 <li><p>bios $(bios): 使用制定 bios，这里指向的是我们提供的 rustsbi 的bin文件。</p></li>
 <li><p>kernel： 使用 elf 格式的 kernel。这里就是我们需要写的OS内核了。</p></li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>每次在make run之前，尽量先执行make clean以删除缓存，特别是在切换ch分支之后。</p>
+</div>
 <p>make run这个指令，应该会陪伴大家走过接下来所有的实验qaq。它完成了内核代码的编译生成kernel，并按照QEMUOPTS变量指定的参数加载我们的kernel，“加电”启动qemu。 此时，CPU 的其它通用寄存器清零，而 PC 会指向 0x1000 的位置，这里有固化在硬件中的一小段引导代码，它会很快跳转到 0x80000000 的 RustSBI 处。 RustSBI完成硬件初始化后，会跳转到 $(KERNEL_BIN) 所在内存位置 0x80200000 处， 执行我们操作系统的第一条指令。</p>
 <img alt="../_images/chap1-intro.png" class="align-center" id="function-call" src="../_images/chap1-intro.png"/>
 <p>那么，知道了这些步骤之后，关键就是怎么去写我们的OS了，这也是我们接下来各个实验的内容~。我们OS的代码，基本全部在os文件夹下。nfs文件夹下有一些文件系统相关的内容，在第七章之前大家无需关注这个文件夹下的内容。</p>
