@@ -305,7 +305,14 @@
 <li><p>syscall ID: 410</p></li>
 <li><p>查询当前正在执行的任务信息，任务信息包括任务控制块相关信息（任务状态）、任务使用的系统调用次数、任务总运行时长。</p></li>
 </ul>
-<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">TaskInfo</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">UnInit</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">Ready</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">Running</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">Exited</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">TaskStatus</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">struct</span> <span class="nc">TaskInfo</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">TaskStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">syscall_times</span><span class="p">[</span><span class="n">MAX_SYSCALL_NUM</span><span class="p">];</span><span class="w"></span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">time</span><span class="p">;</span><span class="w"></span>

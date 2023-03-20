@@ -24,6 +24,13 @@ ch3 中，我们的系统已经能够支持多个任务分时轮流运行，我�
 
 .. code-block:: C
 
+    typedef enum {
+        UnInit,
+        Ready,
+        Running,
+        Exited,
+    } TaskStatus;
+
     struct TaskInfo {
         TaskStatus status;
         unsigned int syscall_times[MAX_SYSCALL_NUM];
