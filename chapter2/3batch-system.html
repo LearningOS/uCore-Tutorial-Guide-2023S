@@ -363,15 +363,16 @@
 <div class="section" id="relocation">
 <h3>内核的relocation<a class="headerlink" href="#relocation" title="永久链接至标题">¶</a></h3>
 <p>内核中通过访问 link_app.S 中定义的 _app_num、app_0_start 等符号来获得用户程序位置.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// os/batch.c</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// os/loader.c</span>
 <span class="k">extern</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">_app_num</span><span class="p">[];</span><span class="w"> </span><span class="c1">// 在link_app.S之中已经定义</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">batchinit</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">app_info_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">uint64</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">_app_num</span><span class="p">;</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">loader_init</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">uint64</span><span class="p">)</span><span class="n">ekernel</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">BASE_ADDRESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">panic</span><span class="p">(</span><span class="s">"kernel too large...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">app_info_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">uint64</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">_app_num</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">app_cur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="n">app_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">app_info_ptr</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">app_info_ptr</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// from now on:</span>
-<span class="w">    </span><span class="c1">// app_n_start = app_info_ptr[n]</span>
-<span class="w">    </span><span class="c1">// app_n_end = app_info_ptr[n+1]</span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
@@ -392,7 +393,7 @@ SECTIONS {
 </pre></div>
 </div>
 <p>这样之后，我们就可以在读取指定内存位置的bin文件来执行它们了。下面是os内核读取link_app.S的info并把它们搬运到0x80400000开始位置的具体过程。</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// os/batch.c</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// os/loader.c</span>
 <span class="k">const</span><span class="w"> </span><span class="n">uint64</span><span class="w"> </span><span class="n">BASE_ADDRESS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x80400000</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_APP_SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x20000</span><span class="p">;</span><span class="w"></span>
 <span class="kt">int</span><span class="w"> </span><span class="nf">load_app</span><span class="p">(</span><span class="n">uint64</span><span class="o">*</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">uint64</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">;</span><span class="w"></span>

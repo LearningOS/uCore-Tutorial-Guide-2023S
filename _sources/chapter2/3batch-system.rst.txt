@@ -95,15 +95,16 @@ pack.py会遍历../user/target/bin，并将该目录下的目标用户程序*.bi
 
 .. code-block:: c
 
-    // os/batch.c
+    // os/loader.c
     extern char _app_num[]; // 在link_app.S之中已经定义
-    void batchinit() {
-        app_info_ptr = (uint64*) _app_num;
+    void loader_init()
+    {
+        if ((uint64)ekernel >= BASE_ADDRESS) {
+            panic("kernel too large...\n");
+        }
+        app_info_ptr = (uint64 *)_app_num;
+        app_cur = -1;
         app_num = *app_info_ptr;
-        app_info_ptr++;
-        // from now on:
-        // app_n_start = app_info_ptr[n]
-        // app_n_end = app_info_ptr[n+1]
     }
 
 然而我们并不能直接跳转到 app_n_start 直接运行，因为用户程序在编译的时候，会假定程序处在虚存的特定位置，而由于我们还没有虚存机制，因此我们在运行之前还需要将用户程序加载到规定的物理内存位置。为此我们规定了用户的链接脚本，并在内核完成程序的 "搬运"
@@ -128,7 +129,7 @@ pack.py会遍历../user/target/bin，并将该目录下的目标用户程序*.bi
 
 .. code-block:: c
 
-    // os/batch.c
+    // os/loader.c
     const uint64 BASE_ADDRESS = 0x80400000, MAX_APP_SIZE = 0x20000;
     int load_app(uint64* info) {
         uint64 start = info[0], end = info[1], length = end - start;
