@@ -50,23 +50,36 @@ kalloc之中的动态内存分配
 注意，我们的管理仅仅在页这个粒度进行，所以所有的地址必须是 PAGE_SIZE 对齐的。
 
 .. code-block:: c
+    
+    // os/kalloc.c
 
-    // os/kalloc.c: 页面分配
-    void *
-    kalloc(void)
+    // Allocate one 4096-byte page of physical memory.
+    // Returns a pointer that the kernel can use.
+    // Returns 0 if the memory cannot be allocated.
+    void *kalloc(void)
     {
         struct linklist *l;
         l = kmem.freelist;
-        kmem.freelist = l->next;
-        return (void*)l;
+        if (l) {
+            kmem.freelist = l->next;
+            memset((char *)l, 5, PGSIZE); // fill with junk
+        }
+        return (void *)l;
     }
 
-    // os/kalloc.c: 页面释放
-    void *
-    kfree(void *pa)
+    // Free the page of physical memory pointed at by v,
+    // which normally should have been returned by a
+    // call to kalloc().  (The exception is when
+    // initializing the allocator; see kinit above.)
+    void kfree(void *pa)
     {
         struct linklist *l;
-        l = (struct linklist*)pa;
+        if (((uint64)pa % PGSIZE) != 0 || (char *)pa < ekernel ||
+            (uint64)pa >= PHYSTOP)
+            panic("kfree");
+        // Fill with junk to catch dangling refs.
+        memset(pa, 1, PGSIZE);
+        l = (struct linklist *)pa;
         l->next = kmem.freelist;
         kmem.freelist = l;
     }
