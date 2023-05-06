@@ -236,7 +236,7 @@ virtio_disk_intr() 会把 buf->disk 置零，这样中断返回后死循环条�
 
 需要特别注意的是 brelse 不会真的如字面意思释放一个 buf。它的准确含义是暂时不操作该 buf 了并把它放置在bcache链表的首部，buf 的真正释放会被推迟到 buf 池满，无法分配的时候，就会把最近最久未使用的 buf 释放掉（释放 = 写回 + 清空）。这是为了尽可能保留内存缓存，因为读写磁盘真的太太太太慢了。
 
-此外，brelse 的数量必须和 bget 相同，因为 bget 会是的引用计数加一。如果没有相匹配的 brelse，就好比 new 了之后没有 delete。千万注意。
+此外，brelse 的数量必须和 bget 相同，因为 bget 会使得引用计数加一。如果没有相匹配的 brelse，就好比 new 了之后没有 delete。千万注意。
 
 
 
@@ -248,8 +248,7 @@ inode的操作
 .. code-block:: c
 
     // 找到 inum 号 dinode 绑定的 inode，如果不存在新绑定一个
-    static struct inode *
-    iget(uint dev, uint inum) {
+    static struct inode *iget(uint dev, uint inum) {
         struct inode *ip, *empty;
         // 遍历查找 inode table
         for (ip = &itable.inode[0]; ip < &itable.inode[NINODE]; ip++) {
@@ -341,7 +340,7 @@ inode的操作
         return tot;
     }
 
-其中bmap函数是连接inode和block的重要函数。但由于我们支持了间接索引，同时还设计到文件大小的改变，所以也拉出来看看:
+其中bmap函数是连接inode和block的重要函数。但由于我们支持了间接索引，同时还涉及到文件大小的改变，所以也拉出来看看:
 
 .. code-block:: c
 
@@ -543,7 +542,7 @@ balloc(位于nfs/fs.c)会分配一个新的buf缓存。而iupdate函数则是把
 
     // namei = 获得根目录，然后在其中遍历查找 path
     struct inode *namei(char *path) {
-    struct inode *dp = root_dir();
+        struct inode *dp = root_dir();
         return dirlookup(dp, path, 0);
     }
 
@@ -554,9 +553,8 @@ balloc(位于nfs/fs.c)会分配一个新的buf缓存。而iupdate函数则是把
         return r;
     }
 
-    // 便利根目录所有的 dirent，找到 name 一样的 inode。
-    struct inode *
-    dirlookup(struct inode *dp, char *name, uint *poff) {
+    // 遍历根目录所有的 dirent，找到 name 一样的 inode。
+    struct inode *dirlookup(struct inode *dp, char *name, uint *poff) {
         uint off, inum;
         struct dirent de;
         // 每次迭代处理一个 block，注意根目录可能有多个 data block
@@ -582,8 +580,7 @@ fileopen 还可能会导致文件 truncate，也就是截断，具体做法是�
 
 .. code-block:: c
 
-    static struct inode *
-    create(char *path, short type) {
+    static struct inode *create(char *path, short type) {
         struct inode *ip, *dp;
         if(ip = namei(path) != 0) {
             // 已经存在，直接返回
@@ -614,8 +611,7 @@ fileopen 还可能会导致文件 truncate，也就是截断，具体做法是�
 
     // os/fs.c
     // Write a new directory entry (name, inum) into the directory dp.
-    int
-    dirlink(struct inode *dp, char *name, uint inum)
+    int dirlink(struct inode *dp, char *name, uint inum)
     {
         int off;
         struct dirent de;
@@ -640,7 +636,7 @@ fileopen 还可能会导致文件 truncate，也就是截断，具体做法是�
         return 0;
     }
 
-ialloc 干的事情：遍历 inode blocks 找到一个空闲的inode，初始化并返回。dirlink对于本章的练习也十分重要。和dirlookup不同，我们没有现成的dirent存储在磁盘上，而是要在磁盘上创建一个新的dirent。他遍历根目录数据块，找到一个空的 dirent，设置 dirent = {inum, filename} 然后返回，注意这一步可能找不到空位，这时需要找一个新的数据块，并扩大 root_dir size，这是由　bmap 自动完成的。需要注意本章创建硬链接时对应inode num的处理。
+ialloc 干的事情：遍历 inode blocks 找到一个空闲的inode，初始化并返回。dirlink对于本章的练习也十分重要。和dirlookup不同，我们没有现成的dirent存储在磁盘上，而是要在磁盘上创建一个新的dirent。他遍历根目录数据块，找到一个空的 dirent，设置 dirent = {inum, filename} 然后返回，注意这一步可能找不到空位，这时需要找一个新的数据块，并扩大 root_dir size，这是由 bmap 自动完成的。需要注意本章创建硬链接时对应inode num的处理。
 
 文件关闭
 ---------------------------------------
@@ -649,8 +645,7 @@ ialloc 干的事情：遍历 inode blocks 找到一个空闲的inode，初始化
 
 .. code-block:: c
 
-    void
-    fileclose(struct file *f)
+    void fileclose(struct file *f)
     {
         if(--f->ref > 0) {
             return;
