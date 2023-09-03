@@ -66,7 +66,7 @@
 .. code-block:: C
     :linenos:
     
-    // os/trap.c
+    // os/proc.h
 
     struct proc pool[NPROC];    // 全局进程池
     struct proc idle;           // boot 进程
