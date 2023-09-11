@@ -27,7 +27,7 @@ makefile 内部
 
    TOOLPREFIX = riscv64-unknown-elf-
    CC = $(TOOLPREFIX)gcc
-   AS = $(TOOLPREFIX)gas
+   AS = $(TOOLPREFIX)as
    LD = $(TOOLPREFIX)ld
    OBJCOPY = $(TOOLPREFIX)objcopy
    OBJDUMP = $(TOOLPREFIX)objdump
